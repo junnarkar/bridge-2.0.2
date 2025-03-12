@@ -1,0 +1,1521 @@
+Bridge++ 2.0.0-prep0.0
+
+Timer: timestamp: 2023/01/04 17:20:41 +0900
+version info:
+  Bridge: 2.0.0-prep0.5
+
+input filename : main.yaml
+
+file = main.yaml
+
+Lattice parameters:
+  Lx = 64,  Ly = 32,  Lz = 32,  Lt = 32,
+  Nx = 64,  Ny = 16,  Nz = 16,  Nt = 8,
+  NPEx = 1,  NPEy  = 2,  NPEz  = 2,  NPEt  = 4,
+  Lvol = 2097152,  Nvol = 131072,  NPE = 16,
+  Ndim = 4
+  Nc   = 3
+  Nd   = 4
+
+calling Communicator::setup
+calling Communicator::setup, done
+ThreadManager: initialization
+  Number of threads = 12
+Main: input parameters
+  lattice_size     = [64, 32, 32, 32]
+  grid_size        = [1, 2, 2, 4]
+  number of thread = 12
+  number of color  = 3
+  logfile          = stdout
+  ildg_logfile     = stdout
+  vlevel           = Detailed
+
+hoge:  in bridge_init_factory_alt_QXS()
+Timer: timestamp: 2023/01/04 17:20:42 +0900
+
+test name: Test_MG_Solver
+file = test_alt_Multigrid.yaml
+Parameters: get_string: key 'verbose_level' not found.
+RandomNumberManager: initialize: type = "Mseries", seed = 1234567
+ Random number init: ndelay =   1234567
+  gconf_status = Continue
+  gconf_read   = Text_4x4x4x8
+  readfile     = ./conf_04040408.txt
+  vlevel       = 
+  fuga:  solver_type  = MG
+  Fopr         = Clover
+     kappa  = 0.130000
+     CSW    = 1.100000
+Field, creating: U
+read_file: file format: nin=18, nex=4, Lvol=2097152
+read_file: field format: nin=18, nex=4, Lvol=131072
+reading field data from ./conf_04040408.txt
+read successful
+|source|   =4096.24579127
+|source|^2 =16779229.58247599
+resizing soruce
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+resizing solution
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AFopr_Clover<AField<double,QXS> >: construction
+  VLENX =  4  Nxv  = 16
+  VLENY =  2  Nyv  = 8
+  VLEN  =  8  Nstv = 16384
+  do_comm[0] = 1
+  do_comm[1] = 1
+  do_comm[2] = 1
+  do_comm[3] = 1
+  Imp::Fopr_CloverTerm: construction
+    Imp::Fopr_CloverTerm: input parameters
+      gamma matrix type = Chiral
+      kappa =   0.13000000
+      cSW   =   1.10000000
+      boundary[0] =  1
+      boundary[1] =  1
+      boundary[2] =  1
+      boundary[3] =  1
+    Gamma matrix: chiral representation.
+  Imp::Fopr_CloverTerm: construction finished.
+  AFopr_Clover<AField<double,QXS> >: set parameters
+    gamma-matrix type = Dirac
+    kappa =   0.1300
+    cSW   =   1.10000000
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+  Imp::Fopr_CloverTerm: input parameters
+    gamma matrix type = Chiral
+    kappa =   0.13000000
+    cSW   =   1.10000000
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+AField<double, QXS>: data resized: nin = 18, nvol = 131072, nex = 4
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 144, nvol = 131072, nex = 1
+AFopr_Clover<AField<double,QXS> >: construction finished.
+converting soruce
+convert in rep. required.
+converting source, done
+running MG solver
+  sap_block_size        = [8, 4, 4, 4]
+  setup_niter  = 4
+  coarse_niter = 200
+  coarse_stop_cond = 2.000000e-03
+  smoother_niter = 4
+  smoother_stop_cond = 1.000000e-03
+  num_vectors  = 16
+  outer_niter  = 1000
+  outer_stop_cond  = 1.000000e-28
+AFopr_Clover<AField<double,QXS> >: construction
+  VLENX =  4  Nxv  = 16
+  VLENY =  2  Nyv  = 8
+  VLEN  =  8  Nstv = 16384
+  do_comm[0] = 1
+  do_comm[1] = 1
+  do_comm[2] = 1
+  do_comm[3] = 1
+  Imp::Fopr_CloverTerm: construction
+    Imp::Fopr_CloverTerm: input parameters
+      gamma matrix type = Chiral
+      kappa =   0.13000000
+      cSW   =   1.10000000
+      boundary[0] =  1
+      boundary[1] =  1
+      boundary[2] =  1
+      boundary[3] =  1
+    Gamma matrix: chiral representation.
+  Imp::Fopr_CloverTerm: construction finished.
+  AFopr_Clover<AField<double,QXS> >: set parameters
+    gamma-matrix type = Dirac
+    kappa =   0.1300
+    cSW   =   1.10000000
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+  Imp::Fopr_CloverTerm: input parameters
+    gamma matrix type = Chiral
+    kappa =   0.13000000
+    cSW   =   1.10000000
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+AField<double, QXS>: data resized: nin = 18, nvol = 131072, nex = 4
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 144, nvol = 131072, nex = 1
+AFopr_Clover<AField<double,QXS> >: construction finished.
+fine grid operator (double) is ready
+AFopr_Clover_dd<AField<float,QXS> >: construction
+  VLENX =  4  Nxv  = 16
+  VLENY =  4  Nyv  = 4
+  VLEN  = 16  Nstv = 8192
+  do_comm[0] = 1
+  do_comm[1] = 1
+  do_comm[2] = 1
+  do_comm[3] = 1
+  Imp::Fopr_CloverTerm: construction
+    Imp::Fopr_CloverTerm: input parameters
+      gamma matrix type = Chiral
+      kappa =   0.13000000
+      cSW   =   1.10000000
+      boundary[0] =  1
+      boundary[1] =  1
+      boundary[2] =  1
+      boundary[3] =  1
+    Gamma matrix: chiral representation.
+  Imp::Fopr_CloverTerm: construction finished.
+  AFopr_Clover_dd<AField<float,QXS> >: set parameters
+    gamma-matrix type = Dirac
+    kappa =   0.1300
+    cSW   =   1.10000002
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+    block_size[0] =  8
+    block_size[1] =  4
+    block_size[2] =  4
+    block_size[3] =  4
+  Imp::Fopr_CloverTerm: input parameters
+    gamma matrix type = Chiral
+    kappa =   0.13000000
+    cSW   =   1.10000000
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+AField<float, QXS>: data resized: nin = 18, nvol = 131072, nex = 4
+AField<float, QXS>: data resized: nin = 18, nvol = 131072, nex = 4
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 144, nvol = 131072, nex = 1
+AFopr_Clover_dd<AField<float,QXS> >: construction finished.
+fine grid operator (float) constructed
+fine grid operator (float) is ready
+  fine_lattice        = [64, 16, 16, 8]
+  coarse_lattice      = [8, 4, 4, 2]
+  sap_block_size      = [8, 4, 4, 4]
+  do_comm[0] = 0
+  do_comm[1] = 1
+  do_comm[2] = 1
+  do_comm[3] = 1
+Imp::Fopr_CloverTerm: construction (obsolete)
+Gamma matrix: dirac representation.
+Imp::Fopr_CloverTerm: construction finished.
+Imp::Fopr_CloverTerm: construction (obsolete)
+Gamma matrix: chiral representation.
+Imp::Fopr_CloverTerm: construction finished.
+AField<float, QXS>: data resized: nin = 18, nvol = 131072, nex = 4
+AField<float, QXS>: data resized: nin = 18, nvol = 131072, nex = 4
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 18, nvol = 131072, nex = 8
+AField<float, QXS>: data resized: nin = 72, nvol = 131072, nex = 1
+Parameters of AFopr_Clover_QWS_dd<AField<float,QXS> >:
+  CKs  =   0.1300
+  boundary[0] =  1
+  boundary[1] =  1
+  boundary[2] =  1
+  boundary[3] =  1
+  block_size[0] =  8
+  block_size[1] =  4
+  block_size[2] =  4
+  block_size[3] =  4
+qws_is_setup = 0
+   boundary conditation: 1 1 1 1
+QWS git commit hash : aa979b854e59894eda9d45f484220436f4b69ebb
+using the default tni assignment
+%% UTOFU interface for one sided communcation  (RDMA) is used.
+sizeof(rdma_comlib_data) = 144, sizeof(int*) = 8
+rank=0: tni_list[0] = 0
+rank=0: tni_list[1] = 0
+rank=0: tni_list[2] = 1
+rank=0: tni_list[3] = 2
+rank=0: tni_list[4] = 3
+rank=0: tni_list[5] = 4
+rank=0: tni_list[6] = 5
+rank=0: tni_list[7] = 5
+rank=0: pxf=0, pxb=0, pyf=1, pyb=1, pzf=2, pzb=2, ptf=4, ptb=12
+rdma_comlib_2buf: using shrared communicator for both buffers
+rdma_comlib_2buf: using shrared communicator for both buffers
+    swap_vcq_for_sending(buff_rdma[0], buff_rdma[1]), done
+rdma_comlib_2buf: using shrared communicator for both buffers
+rdma_comlib_2buf: using shrared communicator for both buffers
+    swap_vcq_for_sending(buff_rdma[2], buff_rdma[3]), done
+rdma_comlib_2buf: using shrared communicator for both buffers
+rdma_comlib_2buf: using shrared communicator for both buffers
+    swap_vcq_for_sending(buff_rdma[4], buff_rdma[5]), done
+rdma_comlib_2buf: using shrared communicator for both buffers
+rdma_comlib_2buf: using shrared communicator for both buffers
+    swap_vcq_for_sending(buff_rdma[6], buff_rdma[7]), done
+    set_parity, recv_updateall, done
+qws_xbound is ready (rdma version).
+WARNING: no rank map is found.
+WARNING: err in making rankmap, using the default map.
+set_rankmap, done: rankmap_id=-1
+calling get_tni_ids: rankmap_id=-1
+rankmap_lib: calling get_tni_list for dim=4, flag=-1
+qws_init_ was called: new qws_is_setup=1
+Imp::Fopr_CloverTerm: input parameters
+  gamma matrix type = Chiral
+  kappa =   0.13000000
+  cSW   =   1.10000000
+  boundary[0] =  1
+  boundary[1] =  1
+  boundary[2] =  1
+  boundary[3] =  1
+Imp::Fopr_CloverTerm: input parameters
+  gamma matrix type = Dirac
+  kappa =   0.13000000
+  cSW   =   1.10000000
+  boundary[0] =  1
+  boundary[1] =  1
+  boundary[2] =  1
+  boundary[3] =  1
+ASolver_MG: init_coarse_grid() [template version] is called
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+  do_comm[0] = 1
+  do_comm[1] = 1
+  do_comm[2] = 1
+  do_comm[3] = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 2048, nvol = 256, nex = 4
+AField<float, QXS>: data resized: nin = 2048, nvol = 256, nex = 1
+shifted buffer: size=4096, alignment=256
+hoge: setting list: th0=1/12, size=1, load=160
+                    th0=1/12, i=0 site=14
+hoge: setting list: th0=2/12, size=1, load=160
+                    th0=2/12, i=0 site=15
+hoge: setting list: th0=3/12, size=1, load=129
+                    th0=3/12, i=0 site=6
+hoge: setting list: th0=4/12, size=1, load=129
+                    th0=4/12, i=0 site=7
+hoge: setting list: th0=5/12, size=1, load=129
+                    th0=5/12, i=0 site=8
+hoge: setting list: th0=6/12, size=1, load=129
+                    th0=6/12, i=0 site=9
+hoge: setting list: th0=7/12, size=2, load=225
+                    th0=7/12, i=0 site=10
+                    th0=7/12, i=1 site=2
+hoge: setting list: th0=8/12, size=2, load=225
+                    th0=8/12, i=0 site=11
+                    th0=8/12, i=1 site=3
+hoge: setting list: th0=9/12, size=2, load=225
+                    th0=9/12, i=0 site=12
+                    th0=9/12, i=1 site=4
+hoge: setting list: th0=10/12, size=2, load=225
+                    th0=10/12, i=0 site=13
+                    th0=10/12, i=1 site=5
+hoge: setting list: th0=11/12, size=2, load=196
+                    th0=11/12, i=0 site=0
+                    th0=11/12, i=1 site=1
+setting list vector, done
+  thread=0,  number of boundary sites = 0
+  thread=1,  number of boundary sites = 1
+  thread=2,  number of boundary sites = 1
+  thread=3,  number of boundary sites = 1
+  thread=4,  number of boundary sites = 1
+  thread=5,  number of boundary sites = 1
+  thread=6,  number of boundary sites = 1
+  thread=7,  number of boundary sites = 2
+  thread=8,  number of boundary sites = 2
+  thread=9,  number of boundary sites = 2
+  thread=10,  number of boundary sites = 2
+  thread=11,  number of boundary sites = 2
+Parameters of AFopr_Clover_coarse<AField<float,QXS> >:
+  coarse_lattice_size[0] =  8
+  coarse_lattice_size[1] =  4
+  coarse_lattice_size[2] =  4
+  coarse_lattice_size[3] =  2
+afopr_coarse version is created
+ASolver_BiCGStab_Cmplx<AField<float,QXS> >: being setup.
+AField<float, QXS>: data resized: nin = 64, nvol = 256, nex = 1
+AField<float, QXS>: data resized: nin = 64, nvol = 256, nex = 1
+AField<float, QXS>: data resized: nin = 64, nvol = 256, nex = 1
+AField<float, QXS>: data resized: nin = 64, nvol = 256, nex = 1
+AField<float, QXS>: data resized: nin = 64, nvol = 256, nex = 1
+ASolver_BiCGStab_Cmplx<AField<float,QXS> >: setup finished.
+Parameters: fetch_double: key 'Omega_tolerance' not found.
+Parameters: fetch_string: key 'initial_guess_mode' not found.
+ASolver_BiCGStab_Cmplx<AField<float,QXS> >:
+  Precision: float
+  Niter     = 200
+  Stop_cond =   2.00000009e-03
+  init_guess_mode: 0
+  Omega_tolerance = 7.00e-01
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+ASolver_SAP_QWS<AField<float,QXS> >:
+  Precision: float
+  Niter     = 4
+  nm        = 10
+  Stop_cond is not used
+AField<float, QXS>: data resized: nin = 64, nvol = 256, nex = 1
+AField<float, QXS>: data resized: nin = 64, nvol = 256, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+Parameters: fetch_double: key 'Omega_tolerance' not found.
+ASolver_FBiCGStab:
+  Precision: double
+  Niter     = 10000
+  Stop_cond =   1.00000000e-28
+  InitialGuess = 0
+  Omega_tolerance = 7.00e-01
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<float, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+run_setup: using single precision Gramschmidt
+using local random numbers for the initial testvectors
+ Random number init: ndelay =   1395704
+convert in rep. required.
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: time for set_testvector = 6.592192e-02 sec
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+asolver_SAP_QWS: solve, started in solve
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: ::gramschmidt is called
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+initial testvectors are ready
+AFopr_Clover_coarse<AField<float,QXS> >: |m_Clov|^2 =   6.445719921875000e+04
+AFopr_Clover_coarse<AField<float,QXS> >: |m_U|^2    =   8.323200225830078e+01
+afopr_coarse version is ready
+Elapsed time: initial setup: total        12.99 sec, count    1, average        12.99 sec
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  4.585578155517578e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   2.534447796642780e-02
+     1   4.641053692466812e-06
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.154284e-03
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=2.465448e+11, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.722811126708984e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   4.372413735836744e-03
+     1   1.837821910157800e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 1.355666e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=4.930897e+11, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.578062438964844e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   2.040835097432137e-03
+     1   3.617454494815320e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 1.901962e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=7.396345e+11, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.523960494995117e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.218152814544737e-03
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 3.490205e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=9.858333e+11, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.498301315307617e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   8.797193877398968e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 2.966006e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.232032e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.474230575561523e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   6.657755584456027e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 2.580263e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.478231e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.459595108032227e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   5.363320815376937e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 2.315884e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.724430e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.452856826782227e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   4.577064537443221e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 2.139408e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.970629e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.441407394409180e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   4.024712252430618e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 2.006170e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=2.216827e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.433100509643555e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   3.730320313479751e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 1.931403e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=2.463026e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.425994873046875e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   3.442971792537719e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 1.855524e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=2.709225e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.415208816528320e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   3.161949280183762e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 1.778188e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=2.955424e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.413236618041992e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   3.051863750442863e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 1.746959e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=3.201623e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.405160522460938e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   2.827390271704644e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 1.681485e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=3.447821e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.396577835083008e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   2.836742787621915e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 1.684264e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=3.694020e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.389710617065430e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   2.684720384422690e-04
+converged:
+  nconv = 2
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 2  diff = 1.638512e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=3.940219e+12, tmp=2.461988e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: ::gramschmidt is called
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+AFopr_Clover_coarse<AField<float,QXS> >: |m_Clov|^2 =   2.407707421875000e+04
+AFopr_Clover_coarse<AField<float,QXS> >: |m_U|^2    =   3.255430603027344e+02
+renewed afopr_coarse: n=0 / 4
+Elapsed time: each setup: total        13.59 sec, count    1, average        13.59 sec
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.530519104003906e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   4.224266484379768e-02
+     1   3.138620639219880e-03
+     2   6.144821963971481e-05
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 7.838890e-03
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=4.187110e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.952857971191406e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   1.470721606165171e-02
+     1   9.237602935172617e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 3.039343e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=4.433655e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.859401702880859e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.348182465881109e-02
+     1   5.906040896661580e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.430235e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=4.680199e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.794838714599609e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   1.369221135973930e-02
+     1   5.203400505706668e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.281096e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=4.926744e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.741040039062500e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999988079071045e-01 [init_ZERO]
+  init:  9.999998807907104e-01
+     0   1.356908120214939e-02
+     1   4.756963462568820e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.181046e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=5.173289e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.673503112792969e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   1.381814572960138e-02
+     1   4.688403569161892e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.165273e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=5.419834e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.625537872314453e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   1.399073190987110e-02
+     1   4.575460334308445e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.139032e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=5.666379e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.585398101806641e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.432135142385960e-02
+     1   4.496064793784171e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.120392e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=5.912924e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.537892913818359e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.448754966259003e-02
+     1   4.505101242102683e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.122523e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=6.159469e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.490969085693359e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.434016600251198e-02
+     1   4.409321118146181e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.099838e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=6.406013e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.449463653564453e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   1.462660171091557e-02
+     1   4.449793777894229e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.109454e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=6.652558e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.407882690429688e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.467438228428364e-02
+     1   4.462139913812280e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.112377e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=6.899103e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.373628234863281e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.471156906336546e-02
+     1   4.417047894094139e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.101678e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=7.145648e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.336412048339844e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   1.489730738103390e-02
+     1   4.476913309190422e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.115871e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=7.392193e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.293434143066406e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   1.477938424795866e-02
+     1   4.351418465375900e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.086006e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=7.638738e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.258795166015625e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   1.460394170135260e-02
+     1   4.239622212480754e-04
+converged:
+  nconv = 4
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 4  diff = 2.059034e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=7.885282e+12, tmp=2.465448e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: ::gramschmidt is called
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+AFopr_Clover_coarse<AField<float,QXS> >: |m_Clov|^2 =   1.680423437500000e+04
+AFopr_Clover_coarse<AField<float,QXS> >: |m_U|^2    =   4.872182922363281e+02
+renewed afopr_coarse: n=1 / 4
+Elapsed time: each setup: total        13.56 sec, count    1, average        13.56 sec
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  8.004280090332031e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   4.699050635099411e-02
+     1   5.425620358437300e-03
+     2   4.575601487886161e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.139066e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=8.132173e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.886978149414062e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   4.711139202117920e-02
+     1   2.992256544530392e-03
+     2   9.941229363903403e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 3.152971e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=8.379064e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.789241790771484e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   5.111043155193329e-02
+     1   3.596978262066841e-03
+     2   1.923362724483013e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.386853e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=8.625955e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.699118041992188e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   5.266343802213669e-02
+     1   3.655994310975075e-03
+     2   3.188574628438801e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.785658e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=8.872846e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.615654754638672e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   5.324234813451767e-02
+     1   3.598364768549800e-03
+     2   3.235610492993146e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.798781e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=9.119737e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.530714416503906e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   5.313405394554138e-02
+     1   3.585341386497021e-03
+     2   3.257664211560041e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.804900e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=9.366628e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.457659912109375e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   5.328888073563576e-02
+     1   3.513189032673836e-03
+     2   3.072537947446108e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.752866e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=9.613518e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.390244293212891e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   5.293711274862289e-02
+     1   3.440659726038575e-03
+     2   2.920037077274173e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.708812e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=9.860409e+12, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.325109863281250e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   5.222538858652115e-02
+     1   3.368820762261748e-03
+     2   2.914929355029017e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.707316e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.010730e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.268475341796875e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   5.107767134904861e-02
+     1   3.240748075768352e-03
+     2   2.749279374256730e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.658095e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.035419e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.208439636230469e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   5.023548752069473e-02
+     1   3.185228444635868e-03
+     2   2.657230070326477e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.630101e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.060108e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.155274200439453e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   4.941816627979279e-02
+     1   3.151578595861793e-03
+     2   2.659909368958324e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.630922e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.084797e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.105047607421875e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   4.862048849463463e-02
+     1   3.056220943108201e-03
+     2   2.508095058146864e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.583697e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.109486e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.057209014892578e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   4.760525003075600e-02
+     1   3.012649249285460e-03
+     2   2.485616132616997e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.576583e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.134175e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.006172180175781e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   4.623154178261757e-02
+     1   2.895389683544636e-03
+     2   2.364468964515254e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.537683e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.158865e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  6.969781494140625e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   4.512568935751915e-02
+     1   2.756561618298292e-03
+     2   2.214708802057430e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.488190e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.183554e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: ::gramschmidt is called
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+AFopr_Clover_coarse<AField<float,QXS> >: |m_Clov|^2 =   1.576544140625000e+04
+AFopr_Clover_coarse<AField<float,QXS> >: |m_U|^2    =   5.370606689453125e+02
+renewed afopr_coarse: n=2 / 4
+Elapsed time: each setup: total        13.56 sec, count    1, average        13.56 sec
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  8.144477081298828e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   3.588633239269257e-02
+     1   4.925739485770464e-03
+     2   5.079556722193956e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.253786e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.208243e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  8.061949157714844e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   6.854634732007980e-02
+     1   7.367633748799562e-03
+     2   5.778480553999543e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.403847e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.232932e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.946459197998047e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   7.645043730735779e-02
+     1   6.061117164790630e-03
+     2   2.177557209506631e-03
+     3   9.133613639278337e-05
+converged:
+  nconv = 8
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 8  diff = 9.556998e-03
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.257655e+13, tmp=2.472369e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.836510467529297e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   7.852245122194290e-02
+     1   6.304767448455095e-03
+     2   5.061911651864648e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.249870e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.282345e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.739177703857422e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   7.964327186346054e-02
+     1   6.338926963508129e-03
+     2   6.132383132353425e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.476365e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.307034e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.655283355712891e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   7.848826795816422e-02
+     1   6.179044488817453e-03
+     2   6.391525967046618e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.528146e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.331723e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.573644256591797e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   7.689639925956726e-02
+     1   5.902190692722797e-03
+     2   5.903351702727377e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.429682e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.356412e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.507254028320312e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999988079071045e-01 [init_ZERO]
+  init:  9.999998807907104e-01
+     0   7.561880350112915e-02
+     1   5.731450859457254e-03
+     2   5.645705969072878e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.376070e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.381101e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.440829467773438e+01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   7.335974276065826e-02
+     1   5.567356478422880e-03
+     2   5.579723510891199e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.362144e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.405790e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.383290863037109e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   7.097822427749634e-02
+     1   5.275987554341555e-03
+     2   5.240236641839147e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.289156e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.430479e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.324681854248047e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   6.891357898712158e-02
+     1   5.112473852932453e-03
+     2   4.987331340089440e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.233233e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.455168e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.275778198242188e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   6.678193807601929e-02
+     1   4.926183726638556e-03
+     2   4.799825255759060e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.190850e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.479857e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.221855163574219e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   6.466621160507202e-02
+     1   4.677542485296726e-03
+     2   4.475051828194410e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.115432e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.504546e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.177884674072266e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   6.300374120473862e-02
+     1   4.540084861218929e-03
+     2   4.346789792180061e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.084895e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.529235e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.134808349609375e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   6.014881655573845e-02
+     1   4.244585521519184e-03
+     2   4.004607908427715e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.001152e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.553925e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  7.100819396972656e+01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   5.855321884155273e-02
+     1   4.123833961784840e-03
+     2   3.860543074551970e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.964827e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.578614e+13, tmp=2.468909e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: ::gramschmidt is called
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+gramschimdt_in_block, called (general version with smaller memory): size of(real_t)=4
+AFopr_Clover_coarse<AField<float,QXS> >: |m_Clov|^2 =   1.558629394531250e+04
+AFopr_Clover_coarse<AField<float,QXS> >: |m_U|^2    =   5.511802978515625e+02
+renewed afopr_coarse: n=3 / 4
+Elapsed time: each setup: total        13.57 sec, count    1, average        13.57 sec
+Elapsed time: Gramschmidt in the setup: total         1.53 sec, count    5, average         0.31 sec
+Elapsed time: generate coarse op: total        57.62 sec, count    5, average        11.52 sec
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: time budget
+Elapsed time:  restriction        : total   1.198035e+00
+Elapsed time:  coarse solver      : total   2.699380e-01
+Elapsed time:  prolongation       : total   8.176876e-01
+Elapsed time:  smoother           : total   4.268613e+00
+Elapsed time:  resudial(+lin.alg) : total   4.166936e-01
+Elapsed time:  convert(f2d)       : total   0.000000e+00
+Elapsed time:  convert(d2f)       : total   0.000000e+00
+Elapsed time:  double             : total   0.000000e+00
+Elapsed time:  mult_single(total) : total   6.970967e+00
+Elapsed time:  mult (total)       : total   0.000000e+00
+  number of mult call : 0
+  Flops: smoother (float)       :   3.337942e+03 GFlop/s
+  Flops: coarse solver (float)  :   2.312757e+02 GFlop/s
+  Flops: float total            :   2.264555e+03 GFlop/s
+  Flops: restrict (float)       :   3.871812e+02 GFlop/s
+  Flops: prolong (float)        :   5.672783e+02 GFlop/s
+Elapsed time: setup total (work vectors given): total        67.27 sec, count    1, average        67.27 sec
+setup is done!
+Elapsed time: setup total: total        67.33 sec, count    1, average        67.33 sec
+ASolver_FBiCGStab  rr      =  2.8613786923244983e-01 [init]
+ FBiCGStab init:  2.861378692324499e-01
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  9.041170030832291e-02
+ASolver_BiCGStab_Cmplx  rr      =  1.0000001192092896e+00 [init_ZERO]
+  init:  1.000000119209290e+00
+     0   4.564544185996056e-02
+     1   3.874260233715177e-03
+     2   4.520184884313494e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.126072e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=2.468909e+11, tmp=2.468909e+11
+FBiCGStab 1   9.560778276448815e-08   Flop(double+float) 2.608327e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.993403911590576e-01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   7.577475160360336e-02
+     1   7.171340752393007e-03
+     2   7.234544609673321e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.689711e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=4.937817e+11, tmp=2.468909e+11
+FBiCGStab 2   2.666492803637477e-12   Flop(double+float) 5.135117e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.344469964504242e-01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999988079071045e-01 [init_ZERO]
+  init:  9.999998807907104e-01
+     0   6.183055415749550e-02
+     1   5.384694319218397e-03
+     2   6.797126843594015e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.607130e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=7.406726e+11, tmp=2.468909e+11
+FBiCGStab 3   2.306706840280430e-16   Flop(double+float) 7.654861e+11
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.294082283973694e-01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   6.034621968865395e-02
+     1   4.704492166638374e-03
+     2   4.859876644331962e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.204513e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=9.875635e+11, tmp=2.468909e+11
+FBiCGStab 4   1.589973065149026e-20   Flop(double+float) 1.018165e+12
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  3.050362169742584e-01
+ASolver_BiCGStab_Cmplx  rr      =  1.0000000000000000e+00 [init_ZERO]
+  init:  1.000000000000000e+00
+     0   5.519774928689003e-02
+     1   4.023570101708174e-03
+     2   4.063337401021272e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 2.015772e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.234454e+12, tmp=2.468909e+11
+FBiCGStab 5   1.631519021303673e-24   Flop(double+float) 1.270139e+12
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_coarse_vector is called
+  |b| = snorm =  2.891258299350739e-01
+ASolver_BiCGStab_Cmplx  rr      =  9.9999994039535522e-01 [init_ZERO]
+  init:  9.999999403953552e-01
+     0   5.219678953289986e-02
+     1   3.607065184041858e-03
+     2   3.650038270279765e-04
+converged:
+  nconv = 6
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: coarse:    nconv = 6  diff = 1.910507e-02
+MultiGrid_Clover< AField<float,QXS>,  AField<float,QXS> >: make_fine_vector is called
+asolver_SAP_QWS: solve, started in solve
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: smoother:  nconv = -1  diff = -1.000000e+00
+update_flop_count: flop_other_float=2.305189e+10, m_accum_flop_float=1.481345e+12, tmp=2.468909e+11
+FBiCGStab 6   9.352342802988808e-29   Flop(double+float) 1.522818e+12
+FBiCGStab converged:
+FBiCGStab  nconv = 6, diff2 =  9.360970892292380e-29
+Elapsed time: solve [MG, solve only]: total         1.04 sec, count    1, average         1.04 sec
+APrecond_MG<AField<double,QXS>, AField<float,QXS> >: time budget
+Elapsed time:  restriction        : total   1.123726e-01
+Elapsed time:  coarse solver      : total   2.131105e-02
+Elapsed time:  prolongation       : total   7.631481e-02
+Elapsed time:  smoother           : total   4.010420e-01
+Elapsed time:  resudial(+lin.alg) : total   3.841288e-02
+Elapsed time:  convert(f2d)       : total   1.593477e-01
+Elapsed time:  convert(d2f)       : total   1.593461e-01
+Elapsed time:  double             : total   5.761960e-03
+Elapsed time:  mult_single(total) : total   6.494534e-01
+Elapsed time:  mult (total)       : total   9.740388e-01
+  number of mult call : 6
+  Flops: smoother (float)       :   3.330788e+03 GFlop/s
+  Flops: coarse solver (float)  :   3.400939e+02 GFlop/s
+  Flops: float total            :   2.280911e+03 GFlop/s
+  Flops: restrict (float)       :   3.869852e+02 GFlop/s
+  Flops: prolong (float)        :   5.698310e+02 GFlop/s
+flop count (MG solver) [GFlop]:
+   solve total (double+float): 1.522818e+03
+   solve coarse (float):   7.247757e+00
+   solve smoother (float): 1.335786e+03
+   solve other (float):    1.383114e+02
+   solve other (double):   1.207960e+00
+ Flops (double+float) : 1470.820463 GFlop/sec
+AFopr_Clover_coarse<AField<float,QXS> >: tidyup
+Elapsed time: afopr_Clover_coarse: mult           : total         0.13 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: clear          : total         0.00 sec, count    0, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: pack           : total         0.03 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: bulk           : total         0.04 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: boundary       : total         0.03 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: comm           : total         0.05 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: comm_recv_wait : total         0.02 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: comm_send_wait : total         0.00 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: comm_recv_start: total         0.01 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: comm_send_start: total         0.01 sec, count  404, average         0.00 sec
+Elapsed time: afopr_Clover_coarse: comm_test_all  : total         0.00 sec, count    0, average         0.00 sec
+AFopr_Clover<AField<double,QXS> >: construction
+  VLENX =  4  Nxv  = 16
+  VLENY =  2  Nyv  = 8
+  VLEN  =  8  Nstv = 16384
+  do_comm[0] = 1
+  do_comm[1] = 1
+  do_comm[2] = 1
+  do_comm[3] = 1
+  Imp::Fopr_CloverTerm: construction
+    Imp::Fopr_CloverTerm: input parameters
+      gamma matrix type = Chiral
+      kappa =   0.13000000
+      cSW   =   1.10000000
+      boundary[0] =  1
+      boundary[1] =  1
+      boundary[2] =  1
+      boundary[3] =  1
+    Gamma matrix: chiral representation.
+  Imp::Fopr_CloverTerm: construction finished.
+  AFopr_Clover<AField<double,QXS> >: set parameters
+    gamma-matrix type = Dirac
+    kappa =   0.1300
+    cSW   =   1.10000000
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+  Imp::Fopr_CloverTerm: input parameters
+    gamma matrix type = Chiral
+    kappa =   0.13000000
+    cSW   =   1.10000000
+    boundary[0] =  1
+    boundary[1] =  1
+    boundary[2] =  1
+    boundary[3] =  1
+AField<double, QXS>: data resized: nin = 18, nvol = 131072, nex = 4
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+AField<double, QXS>: data resized: nin = 144, nvol = 131072, nex = 1
+AFopr_Clover<AField<double,QXS> >: construction finished.
+fine grid operator (double) is ready [for convergence check]
+resizing solution
+AField<double, QXS>: data resized: nin = 24, nvol = 131072, nex = 1
+solving, done:      diff2= 9.360970892292371e-29
+           relatvie diff2= 9.360970892292375e-29
+Elapsed time: Test_MG_Solver: total        72.54 sec, count    1, average        72.54 sec
+Elapsed time: Main: total        72.56 sec, count    1, average        72.56 sec
+Timer: timestamp: 2023/01/04 17:21:54 +0900
+Timer: timestamp: 2023/01/04 17:21:54 +0900
