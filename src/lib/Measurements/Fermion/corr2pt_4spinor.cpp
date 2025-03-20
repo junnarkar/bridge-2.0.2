@@ -50,6 +50,617 @@ void Corr2pt_4spinor::init()
 
 
 //====================================================================
+double Corr2pt_4spinor::pion(const std::vector<Field_F>& sq1, 
+                             const std::vector<Field_F>& sq2)
+{
+  const int Lt = CommonParameters::Lt();
+  std::ostream& log_file_previous = vout.getStream();
+  std::ofstream log_file;
+
+  if (m_filename_output != "stdout") {
+    log_file.open(m_filename_output.c_str(), std::ios::app);
+    vout.init(log_file);
+  }
+
+  std::vector<dcomplex> corr(Lt);
+
+  GammaMatrix gm_src  = m_gmset->get_GM(m_gmset->GAMMA54);
+  GammaMatrix gm_sink = m_gmset->get_GM(m_gmset->GAMMA5);
+  
+  vout.general(m_vl, "PS <-- PS correlator:\n");
+  
+  //meson_correlator(corr, gm_sink, gm_src, sq1, sq2);
+  pion_correlator(corr, gm_sink, gm_src, sq1, sq2);
+  //pion_modsq(corr, gm_sink, gm_src, sq1, sq2);
+  //pion_correlator_modsq(corr, gm_sink, gm_src, sq1, sq2);
+  
+  for (int t = 0; t < corr.size(); ++t) {
+    vout.general(m_vl, "  %4d  %20.12e  %20.12e\n",
+                 t, real(corr[t]), imag(corr[t]));
+  }
+  
+  const double result = real(corr[0]);
+  if (m_filename_output != "stdout") {
+    log_file.close();
+    vout.init(log_file_previous);
+  }
+
+  return result;
+}
+
+//====================================================================
+
+void Corr2pt_4spinor::pion_correlator(std::vector<dcomplex>& corr_global,
+                                       const GammaMatrix& gm_sink,
+                                       const GammaMatrix& gm_src,
+                                       const std::vector<Field_F>& sq1,
+                                       const std::vector<Field_F>& sq2)
+{
+  const int Nc = CommonParameters::Nc();
+  const int Nd = CommonParameters::Nd();
+  const int Lt = CommonParameters::Lt();
+  const int Nt = CommonParameters::Nt();
+
+  assert(corr_global.size() == Lt);
+
+  const int Nvol   = sq1[0].nvol();
+  const int Nvol_s = Nvol / CommonParameters::Nt();
+
+  const GammaMatrix gm5         = m_gmset->get_GM(m_gmset->GAMMA5);
+  const GammaMatrix gm_gm5_src  = gm_src.mult(gm5);
+  const GammaMatrix gm5_gm_sink = gm5.mult(gm_sink);
+
+  std::vector<dcomplex> corr_local(Nt, cmplx(0.0, 0.0));
+
+  int id1[Nd];
+  int id2[Nd];
+  int id_src[Nd];
+
+  int NC2 = 6 ;
+  int NCD2 = 24;
+
+  for (int id = 0; id < Nd; ++id) {
+    id_src[id] = gm_gm5_src.index(id);
+    id1[id] = id * NC2;
+    id2[id] = gm5_gm_sink.index(id) * NC2;
+  }
+  
+  dcomplex corr_t;
+
+  for (int t = 0; t < Nt; ++t) {
+    corr_t = 0 ;
+    for (int ss = 0; ss < Nvol_s; ++ss) {
+
+    int site = NCD2 * (ss + t * Nvol_s);
+    
+    for(int c0=0; c0 < Nc; ++c0){
+      for(int d0=0; d0 < Nd; ++d0){
+        
+        const double *u_quark, *d_quark;
+
+        u_quark = sq1[c0 + Nc * id_src[d0]].ptr(0);
+        d_quark = sq2[c0 + Nc * d0].ptr(0);
+
+        for (int c1 = 0; c1 < Nc; ++c1) {
+          for (int d1 = 0; d1 < Nd; ++d1) {
+
+            dcomplex u_prop, d_prop;
+
+            int ic1_r = 2 * c1 + id1[d1] + site;
+            int ic1_i = 2 * c1 + 1 + id1[d1] + site;
+            u_prop = cmplx(u_quark[ic1_r], u_quark[ic1_i]);
+
+            int ic2_r = 2 * c1 + id2[d1] + site;
+            int ic2_i = 2 * c1 + 1 + id2[d1] + site;
+            d_prop = cmplx(d_quark[ic2_r],d_quark[ic2_i]);
+
+            corr_t += gm_gm5_src.value(d0) * gm5_gm_sink.value(d1) * conj(u_prop) * d_prop ;
+
+            }
+          }
+        }
+      }
+    }
+  corr_local[t] = corr_t;
+  }
+
+  global_corr_t(corr_global, corr_local);
+
+}
+
+void Corr2pt_4spinor::pion_corr(std::vector<dcomplex>& corr_global,
+                                       const GammaMatrix& gm_sink,
+                                       const GammaMatrix& gm_src,
+                                       const std::vector<Field_F>& sq1,
+                                       const std::vector<Field_F>& sq2)
+{
+  const int Nc = CommonParameters::Nc();
+  const int Nd = CommonParameters::Nd();
+  const int Lt = CommonParameters::Lt();
+  const int Nt = CommonParameters::Nt();
+
+  assert(corr_global.size() == Lt);
+
+  const int Nvol   = sq1[0].nvol();
+  const int Nvol_s = Nvol / CommonParameters::Nt();
+  
+  const GammaMatrix gm5         = m_gmset->get_GM(m_gmset->GAMMA5);
+  const GammaMatrix gm_gm5_src  = gm_src.mult(gm5);
+  const GammaMatrix gm5_gm_sink = gm5.mult(gm_sink);
+
+  std::vector<dcomplex> corr_local(Nt, cmplx(0.0, 0.0));
+  
+  int id1[Nd];
+  int id2[Nd];
+  int id_src[Nd];
+
+  int NC2 = 6 ;
+  int NCD2 = 24;
+
+  for (int id = 0; id < Nd; ++id) {
+    id_src[id] = gm_gm5_src.index(id);
+    id1[id] = id * NC2;
+    id2[id] = gm5_gm_sink.index(id) * NC2;
+  }
+
+  dcomplex corr;
+
+  for (int c0 = 0; c0 < Nc; ++c0) {
+    for (int d0 = 0; d0 < Nd; ++d0) {
+      
+      const double *w1 = sq1[c0 + Nc * d0].ptr(0);
+      const double *w2 = sq2[c0 + Nc * id_src[d0]].ptr(0);
+      
+      for (int t = 0; t < Nt; ++t) {
+        double c_r[Nd], c_i[Nd];
+        
+        for (int id = 0; id < Nd; ++id) {
+          c_r[id] = 0.0;
+          c_i[id] = 0.0;
+        }
+        
+        for (int ss = 0; ss < Nvol_s; ++ss) {
+          int site = NCD2 * (ss + t * Nvol_s);
+
+          for (int c1 = 0; c1 < Nc; ++c1) {
+            for (int d1 = 0; d1 < Nd; ++d1) {
+              int ic1_r = 2 * c1 + id1[d1] + site;
+              int ic2_r = 2 * c1 + id2[d1] + site;
+
+              int ic1_i = 2 * c1 + 1 + id1[d1] + site;
+              int ic2_i = 2 * c1 + 1 + id2[d1] + site;
+
+              c_r[d1] += w1[ic2_r] * w2[ic1_r] + w1[ic2_i] * w2[ic1_i];
+
+              c_i[d1] += -w1[ic2_r] * w2[ic1_i] + w1[ic2_i] * w2[ic1_r];
+
+              //corr_t += gm_gm5_src.value(d0) * gm5_gm_sink.value(d1) * cmplx(c_r, c_i);
+            }
+          }
+        }
+
+      //corr = cmplx(0.0, 0.0);
+      //for (int id = 0; id < Nd; ++id) {
+      //corr += gm5_gm_sink.value(id) * cmplx(c_r[id], c_i[id]);
+     // }
+     
+      corr_local[t] += gm_gm5_src.value(d0) * corr;
+      
+      }
+    }
+  }
+  global_corr_t(corr_global, corr_local);
+}
+
+
+void Corr2pt_4spinor::pion_modsq(std::vector<dcomplex>& corr_global,
+                                       const GammaMatrix& gm_sink,
+                                       const GammaMatrix& gm_src,
+                                       const std::vector<Field_F>& sq1,
+                                       const std::vector<Field_F>& sq2)
+{
+  const int Nc = CommonParameters::Nc();
+  const int Nd = CommonParameters::Nd();
+  const int Lt = CommonParameters::Lt();
+  const int Nt = CommonParameters::Nt();
+
+  assert(corr_global.size() == Lt);
+
+  const int Nvol   = sq1[0].nvol();
+  const int Nvol_s = Nvol / CommonParameters::Nt();
+  
+
+  std::vector<dcomplex> corr_local(Nt, cmplx(0.0, 0.0));
+  
+
+  int NC2 = 6 ;
+  int NCD2 = 24;
+      
+  for (int t = 0; t < Nt; ++t) {
+    double c_r=0.0;
+    double c_i=0.0;
+    for (int ss = 0; ss < Nvol_s; ++ss) {
+      int site = NCD2 * (ss + t * Nvol_s);
+      
+      for (int c0 = 0; c0 < Nc; ++c0) {
+        for (int d0 = 0; d0 < Nd; ++d0) {
+      
+          const double *w1 = sq1[c0 + Nc * d0].ptr(0);
+
+          for (int c1 = 0; c1 < Nc; ++c1) {
+            for (int d1 = 0; d1 < Nd; ++d1) {
+              int ic1_r = 2 * c1 + (NC2*d1) + site;
+              int ic1_i = ic1_r + 1;
+
+              c_r += (w1[ic1_r] * w1[ic1_r]) + (w1[ic1_i] * w1[ic1_i]);
+
+              c_i = 0.0; 
+
+            }
+          }
+        }
+      }
+    }
+    corr_local[t] += cmplx(c_r,c_i);
+  }
+  global_corr_t(corr_global, corr_local);
+}
+
+//====================================================================
+void Corr2pt_4spinor::nucleon_correlator(std::vector<dcomplex>& corr_global,
+                                       const std::vector<Field_F>& sq1,
+                                       const std::vector<Field_F>& sq2,
+                                       const std::vector<Field_F>& sq3)
+{
+  const int Nc = CommonParameters::Nc();
+  const int Nd = CommonParameters::Nd();
+  const int Lt = CommonParameters::Lt();
+  const int Nt = CommonParameters::Nt();
+
+  assert(corr_global.size() == Lt);
+
+  const int Nvol   = sq1[0].nvol();
+  const int Nvol_s = Nvol / CommonParameters::Nt();
+
+  const GammaMatrix unity       = m_gmset->get_GM(m_gmset->UNITY);
+  const GammaMatrix gm5       = m_gmset->get_GM(m_gmset->GAMMA5);
+  const GammaMatrix C         = m_gmset->get_GM(m_gmset->CHARGECONJG);
+  const GammaMatrix Cg5_src  = C.mult(gm5);
+  const GammaMatrix Cg5_snk  = C.mult(gm5);
+  const GammaMatrix parity   = gm5.add(unity);
+  
+  EpsilonTensor e_src, e_snk;
+
+  std::vector<dcomplex> corr_local(Nt, cmplx(0.0, 0.0));
+
+  int NC2 = 6 ;
+  int NCD2 = 24;
+  int Nfaces = 6;
+  
+  int id1[Nd],id2[Nd],id3[Nd];
+
+  for (int id = 0; id < Nd; ++id) {
+    id1[id] = id * NC2;
+    id2[id] = parity.index(id) * NC2;
+    id3[id] = Cg5_src.index(id) * NC2;
+  }
+  
+  const double *u1_quark, *d_quark, *u2_quark;
+
+      
+  for (int alpha = 0; alpha < Nd; ++alpha){
+    for (int mu = 0; mu < Nd; ++mu){
+      for (int nu = 0; nu < Nd; ++nu){
+        for (int c_src = 0; c_src < Nfaces; ++c_src){
+
+          int a  = e_src.epsilon_3_index(c_src, 0);
+          int b  = e_src.epsilon_3_index(c_src, 1);
+          int c  = e_src.epsilon_3_index(c_src, 2);
+
+          dcomplex src_factor = parity.value(alpha) * Cg5_src.value(mu) * static_cast<double>(e_src.epsilon_3_value(c_src));
+          
+          u1_quark = sq1[a + Nc * id2[alpha]].ptr(0) ;
+          u2_quark = sq1[b + Nc * id1[mu]].ptr(0) ;
+          d_quark  = sq1[c + Nc * id3[nu]].ptr(0) ;
+
+          for (int t = 0; t < Nt; ++t) {
+            dcomplex corr_t = cmplx(0.0,0.0) ;
+            for (int ss = 0; ss < Nvol_s; ++ss) {
+              int site = NCD2 * (ss + t * Nvol_s);
+              
+              for (int alpha_p = 0; alpha_p < Nd; ++alpha_p){
+                for (int mu_p = 0; mu_p < Nd; ++mu_p){
+                  for (int nu_p = 0; nu_p < Nd; ++nu_p){
+                    for (int c_snk = 0; c_snk < Nfaces; ++c_snk){
+
+                      int a_p  = e_snk.epsilon_3_index(c_snk, 0);
+                      int b_p  = e_snk.epsilon_3_index(c_snk, 1);
+                      int c_p  = e_snk.epsilon_3_index(c_snk, 2);
+
+                      dcomplex u1_prop, u2_prop, u3_prop, u4_prop, d_prop;
+
+                      dcomplex snk_factor = parity.value(alpha_p) * Cg5_snk.value(mu_p) * static_cast<double>(e_snk.epsilon_3_value(c_snk));
+                      
+                      int ic1_r = 2 * a_p + id2[alpha_p] + site;
+                      int ic1_i = ic1_r + 1 ;
+                      u1_prop = cmplx(u1_quark[ic1_r], u1_quark[ic1_i]);
+                      
+                      int ic2_r = 2 * b_p + id1[mu_p] + site;
+                      int ic2_i = ic2_r + 1 ;
+                      u1_prop = cmplx(u2_quark[ic2_r], u2_quark[ic2_i]);
+
+                      u3_prop = cmplx(u1_quark[ic2_r], u1_quark[ic2_i]);
+                      
+                      u4_prop = cmplx(u2_quark[ic1_r], u2_quark[ic1_i]);
+                      
+                      int ic3_r = 2 * c_p + id3[nu_p] + site;
+                      int ic3_i = ic3_r + 1 ;
+                      d_prop = cmplx(d_quark[ic3_r], d_quark[ic3_i]);
+
+                      corr_t += src_factor * snk_factor * (((u1_prop * u2_prop) - (u3_prop * u4_prop)) * d_prop);
+                    }
+                  }
+                }
+              }
+            }
+          corr_local[t] += corr_t;
+          }
+        }
+      }
+    }
+  }
+  global_corr_t(corr_global, corr_local);
+}
+
+//====================================================================
+/*
+void Corr2pt_4spinor::get_antiquark(const std::vector<Field_F>& sq1, const std::vector<Field_F>& anti_quark)
+{
+  const int Nc = CommonParameters::Nc();
+  const int Nd = CommonParameters::Nd();
+  const int Lt = CommonParameters::Lt();
+  const int Nt = CommonParameters::Nt();
+
+  assert(corr_global.size() == Lt);
+
+  const int Nvol   = sq1[0].nvol();
+  const int Nvol_s = Nvol / CommonParameters::Nt();
+
+  const GammaMatrix unity       = m_gmset->get_GM(m_gmset->UNITY);
+  const GammaMatrix gm5       = m_gmset->get_GM(m_gmset->GAMMA5);
+
+
+
+}
+*/
+void Corr2pt_4spinor::Tbb_Tbb(std::vector<dcomplex>& corr_global,
+                                       const GammaMatrix& gm_snk,
+                                       const GammaMatrix& gm_src,
+                                       const double overall_factor,
+                                       const std::vector<Field_F>& sq1,
+                                       const std::vector<Field_F>& sq2,
+                                       const std::vector<Field_F>& sq3,
+                                       const std::vector<Field_F>& sq4)
+{
+  const int Nc = CommonParameters::Nc();
+  const int Nd = CommonParameters::Nd();
+  const int Lt = CommonParameters::Lt();
+  const int Nt = CommonParameters::Nt();
+
+  assert(corr_global.size() == Lt);
+
+  const int Nvol   = sq1[0].nvol();
+  const int Nvol_s = Nvol / CommonParameters::Nt();
+
+  const GammaMatrix unity       = m_gmset->get_GM(m_gmset->UNITY);
+  const GammaMatrix gm5       = m_gmset->get_GM(m_gmset->GAMMA5);
+  const GammaMatrix C         = m_gmset->get_GM(m_gmset->CHARGECONJG);
+  const GammaMatrix Cg5_src  = C.mult(gm5);
+  const GammaMatrix Cg5_snk  = C.mult(gm5);
+  
+  int NC2 = 6 ;
+  int NCD2 = 24;
+  int Nfaces = 6;
+  
+  int id1[Nd], id2[Nd], id3[Nd], id4[Nd], id5[Nd];
+
+  for (int id = 0; id < Nd; ++id) {
+    id1[id] = id * NC2;
+    id2[id] = gm_src.index(id) * NC2;
+    id3[id] = Cg5_src.index(id) * NC2;
+    id4[id] = gm_snk.index(id) * NC2;
+    id5[id] = Cg5_snk.index(id) * NC2;
+  }
+  
+  const double *u_quark, *d_quark, *b1_quark, *b2_quark;
+
+  std::vector<dcomplex> corr_local(Nt, cmplx(0.0, 0.0));
+  
+  dcomplex src_factor, snk_factor;
+
+  for (int alpha = 0; alpha < Nd; ++alpha){
+    for (int beta = 0; beta < Nd; ++beta){
+      for (int rho = 0; rho < Nd; ++rho){
+        for (int kappa = 0; kappa < Nd; ++kappa){
+          for (int a = 0; a < Nc; ++a){
+            for (int b = 0; b < Nc; ++b){
+              u_quark  = sq1[a + Nc * id1[alpha]].ptr(0) ;
+              d_quark  = sq2[b + Nc * id3[beta]].ptr(0) ;
+              b1_quark = sq3[b + Nc * id2[rho]].ptr(0);
+              b2_quark = sq4[a + Nc * id1[kappa]].ptr(0);
+              
+              src_factor = overall_factor * Cg5_src.value(alpha) * gm_src.value(kappa);
+              
+              for (int t = 0; t < Nt; ++t) {
+                dcomplex corr_t = cmplx(0.0,0.0) ;
+                
+                for (int ss = 0; ss < Nvol_s; ++ss) {
+                  int site = NCD2 * (ss + t * Nvol_s);
+              
+                  for (int alpha_p = 0; alpha_p < Nd; ++alpha_p){
+                    for (int beta_p = 0; beta_p < Nd; ++beta_p){
+                      for (int rho_p = 0; rho_p < Nd; ++rho_p){
+                        for (int kappa_p = 0; kappa_p < Nd; ++kappa_p){
+                          for (int a_p = 0; a_p < Nc; ++a_p){
+                            for (int b_p = 0; b_p < Nc; ++b_p){
+                              
+                              dcomplex u_prop, d_prop, b1_prop, b2_prop, b3_prop, b4_prop;
+                              
+                              snk_factor = Cg5_snk.value(beta_p) * gm_snk.value(rho_p);
+                              
+                              int ic1_r = 2 * a_p + id5[alpha_p] + site;
+                              int ic1_i = ic1_r + 1 ;
+                              u_prop = cmplx(u_quark[ic1_r], u_quark[ic1_i]);
+
+                              int ic2_r = 2 * b_p + id1[beta_p] + site;
+                              int ic2_i = ic2_r + 1 ;
+                              d_prop = cmplx(d_quark[ic2_r], d_quark[ic2_i]);
+                              
+                              int ic3_r = 2 * b_p + id1[rho_p] + site;
+                              int ic3_i = ic3_r + 1 ;
+                              b1_prop = cmplx(b1_quark[ic3_r], b1_quark[ic3_i]);
+                              
+                              int ic4_r = 2 * a_p + id4[kappa_p] + site;
+                              int ic4_i = ic4_r + 1 ;
+                              b2_prop = cmplx(b2_quark[ic4_r], b2_quark[ic4_i]);
+
+                              b3_prop = cmplx(b1_quark[ic4_r], b1_quark[ic4_i]);
+                              b4_prop = cmplx(b2_quark[ic3_r], b2_quark[ic3_i]);
+
+                              corr_t += src_factor * snk_factor * u_prop * d_prop * ( (b1_prop * b2_prop) - (b3_prop * b4_prop) );
+
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              corr_local[t] += corr_t;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  global_corr_t(corr_global, corr_local);
+}
+
+//====================================================================
+/*
+void Corr2pt_4spinor::M_Tbb(std::vector<dcomplex>& corr_global,
+                                       const GammaMatrix& gm_snk,
+                                       const GammaMatrix& gm_src,
+                                       const double overall_factor,
+                                       const std::vector<Field_F>& sq1,
+                                       const std::vector<Field_F>& sq2,
+                                       const std::vector<Field_F>& sq3,
+                                       const std::vector<Field_F>& sq4)
+{
+  const int Nc = CommonParameters::Nc();
+  const int Nd = CommonParameters::Nd();
+  const int Lt = CommonParameters::Lt();
+  const int Nt = CommonParameters::Nt();
+
+  assert(corr_global.size() == Lt);
+
+  const int Nvol   = sq1[0].nvol();
+  const int Nvol_s = Nvol / CommonParameters::Nt();
+
+  const GammaMatrix unity       = m_gmset->get_GM(m_gmset->UNITY);
+  const GammaMatrix gm5       = m_gmset->get_GM(m_gmset->GAMMA5);
+  const GammaMatrix C         = m_gmset->get_GM(m_gmset->CHARGECONJG);
+  const GammaMatrix Cg5_src  = C.mult(gm5);
+  const GammaMatrix Cg5_snk  = C.mult(gm5);
+  
+  int id1[Nd], id2[Nd], id3[Nd], id4[Nd], id5[Nd];
+
+  for (int id = 0; id < Nd; ++id) {
+    id1[id] = id * NC2;
+    id2[id] = gm_src.index(id) * NC2;
+    id3[id] = Cg5_src.index(id) * NC2;
+    id4[id] = gm_snk.index(id) * NC2;
+    id5[id] = Cg5_snk.index(id) * NC2;
+  }
+  
+  const double *u_quark, *d_quark, *b1_quark, *b2_quark;
+
+  std::vector<dcomplex> corr_local(Nt, cmplx(0.0, 0.0));
+  
+  dcomplex src_factor, snk_factor;
+
+  for (int alpha = 0; alpha < Nd; ++alpha){
+    for (int beta = 0; beta < Nd; ++beta){
+      for (int rho = 0; rho < Nd; ++rho){
+        for (int kappa = 0; kappa < Nd; ++kappa){
+          for (int a = 0; a < Nc; ++a){
+            for (int b = 0; b < Nc; ++b){
+              u_quark  = sq1[a + Nc * id1[alpha]].ptr(0) ;
+              d_quark  = sq2[b + Nc * id3[beta]].ptr(0) ;
+              b1_quark = sq3[b + Nc * id2[rho]].ptr(0);
+              b2_quark = sq4[a + Nc * id1[kappa]].ptr(0);
+              
+              src_factor = overall_factor * Cg5_src.value(alpha) * gm_src.value(kappa);
+              
+              for (int t = 0; t < Nt; ++t) {
+                dcomplex corr_t = cmplx(0.0,0.0) ;
+                
+                for (int ss = 0; ss < Nvol_s; ++ss) {
+                  int site = NCD2 * (ss + t * Nvol_s);
+              
+                  for (int alpha_p = 0; alpha_p < Nd; ++alpha_p){
+                    for (int beta_p = 0; beta_p < Nd; ++beta_p){
+                      for (int rho_p = 0; rho_p < Nd; ++rho_p){
+                        for (int kappa_p = 0; kappa_p < Nd; ++kappa_p){
+                          for (int a_p = 0; a_p < Nc; ++a_p){
+                            for (int b_p = 0; b_p < Nc; ++b_p){
+                              
+                              dcomplex u_prop, d_prop, b1_prop, b2_prop, b3_prop, b4_prop;
+                              
+                              snk_factor = Cg5_snk.value(beta_p) * gm_snk.value(rho_p);
+                              
+                              int ic1_r = 2 * a_p + id5[alpha_p] + site;
+                              int ic1_i = ic1_r + 1 ;
+                              u_prop = cmplx(u_quark[ic1_r], u_quark[ic1_i]);
+
+                              int ic2_r = 2 * b_p + id1[beta_p] + site;
+                              int ic2_i = ic2_r + 1 ;
+                              d_prop = cmplx(d_quark[ic2_r], d_quark[ic2_i]);
+                              
+                              int ic3_r = 2 * b_p + id1[rho_p] + site;
+                              int ic3_i = ic3_r + 1 ;
+                              b1_prop = cmplx(b1_quark[ic3_r], b1_quark[ic3_i]);
+                              
+                              int ic4_r = 2 * a_p + id4[kappa_p] + site;
+                              int ic4_i = ic4_r + 1 ;
+                              b2_prop = cmplx(b2_quark[ic4_r], b2_quark[ic4_i]);
+
+                              b3_prop = cmplx(b1_quark[ic4_r], b1_quark[ic4_i]);
+                              b4_prop = cmplx(b2_quark[ic3_r], b2_quark[ic3_i]);
+
+                              corr_t += src_factor * snk_factor * u_prop * d_prop * ( (b1_prop * b2_prop) - (b3_prop * b4_prop) );
+
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              corr_local[t] += corr_t;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  global_corr_t(corr_global, corr_local);
+}
+*/
+//====================================================================
+
 double Corr2pt_4spinor::meson_all(const std::vector<Field_F>& sq1,
                                   const std::vector<Field_F>& sq2)
 {
@@ -228,7 +839,6 @@ void Corr2pt_4spinor::meson_correlator(std::vector<dcomplex>& corr_global,
   }
   global_corr_t(corr_global, corr_local);
 }
-
 
 //====================================================================
 double Corr2pt_4spinor::meson_momentum_all(const std::vector<Field_F>& sq1,

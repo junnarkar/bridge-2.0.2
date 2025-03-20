@@ -54,6 +54,27 @@ GammaMatrix GammaMatrix::mult(GammaMatrix gm1) const
   return gm2;
 }
 
+//====================================================================
+GammaMatrix GammaMatrix::add(GammaMatrix gm1) const
+{
+  // \gamma2_{ab}=\gamma_{ac} + \gamma1_{cb} (SA)
+
+  GammaMatrix gm2;
+
+  for (int row = 0; row < m_Nd; ++row) {
+    gm2.m_gmindex[row] = gm1.m_gmindex[m_gmindex[row]];
+    gm2.m_gmval_i[row] = m_gmval_i[row]
+                         + gm1.m_gmval_i[m_gmindex[row]];
+    // \gamma_{ac} * \gamma1_{cb}, c=m_gmindex[a], (a=row) (SA)
+
+    gm2.set_values(row);
+  }
+
+  return gm2;
+}
+
+
+//====================================================================
 
 //====================================================================
 GammaMatrix GammaMatrix::mult_i(GammaMatrix gm1) const

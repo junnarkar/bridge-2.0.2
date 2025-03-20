@@ -79,6 +79,38 @@ class Corr2pt_4spinor
 
   void set_parameter_verboselevel(const Bridge::VerboseLevel vl) { m_vl = vl; }
 
+  double pion(const std::vector<Field_F>& sq1, const std::vector<Field_F>& sq2);
+
+  void pion_correlator(std::vector<dcomplex>& corr_global,
+                       const GammaMatrix& gm_sink,
+                       const GammaMatrix& gm_src,
+                       const std::vector<Field_F>& sq1,
+                       const std::vector<Field_F>& sq2);
+  void pion_corr(std::vector<dcomplex>& corr_global,
+                       const GammaMatrix& gm_sink,
+                       const GammaMatrix& gm_src,
+                       const std::vector<Field_F>& sq1,
+                       const std::vector<Field_F>& sq2);
+  void pion_modsq(std::vector<dcomplex>& corr_global,
+                       const GammaMatrix& gm_sink,
+                       const GammaMatrix& gm_src,
+                       const std::vector<Field_F>& sq1,
+                       const std::vector<Field_F>& sq2);
+  
+  void nucleon_correlator(std::vector<dcomplex>& corr_global,
+                          const std::vector<Field_F>& sq1,
+                          const std::vector<Field_F>& sq2,
+                          const std::vector<Field_F>& sq3);
+
+void Tbb_Tbb(std::vector<dcomplex>& corr_global,
+             const GammaMatrix& gm_snk,
+             const GammaMatrix& gm_src,
+             const double overall_factor,
+             const std::vector<Field_F>& sq1,
+             const std::vector<Field_F>& sq2,
+             const std::vector<Field_F>& sq3,
+             const std::vector<Field_F>& sq4);
+
   double meson_all(
     const std::vector<Field_F>& sq1,
     const std::vector<Field_F>& sq2);

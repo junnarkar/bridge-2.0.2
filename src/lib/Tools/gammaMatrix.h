@@ -75,6 +75,8 @@ class GammaMatrix {
   void print();
 
   GammaMatrix mult(GammaMatrix) const;
+  
+  GammaMatrix add(GammaMatrix) const;
 
   GammaMatrix mult_i(GammaMatrix) const;
 

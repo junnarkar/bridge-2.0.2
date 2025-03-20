@@ -187,7 +187,7 @@ void usage(const char *program_name)
     vout.general(vl, "\n");
     vout.general(vl, "2-point correlator:\n");
 
-    const double result = corr.meson_all(sq, sq);
+    const double result = corr.pion(sq, sq);
 
     timer.report();
 
