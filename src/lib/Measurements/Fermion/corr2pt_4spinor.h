@@ -102,28 +102,32 @@ class Corr2pt_4spinor
                           const std::vector<Field_F>& sq2,
                           const std::vector<Field_F>& sq3);
 
-void get_antiquark(const std::vector<Field_F>& quark_prop, std::vector<Field_F>& anti_quark_prop);
+  void get_antiquark(const std::vector<Field_F>& quark_prop, std::vector<Field_F>& anti_quark_prop);
 
-void Tbb_Tbb(std::vector<dcomplex>& corr_global,
-             const GammaMatrix& gm_snk,
-             const GammaMatrix& gm_src,
-             const double overall_factor,
-             const std::vector<Field_F>& sq1,
-             const std::vector<Field_F>& sq2);
+  void Tbb_Tbb(std::vector<dcomplex>& corr_global,
+               const GammaMatrix& gm_snk,
+               const GammaMatrix& gm_src,
+               const double overall_factor,
+               const std::vector<Field_F>& sq1,
+               const std::vector<Field_F>& sq2);
 
-void M_Tbb(std::vector<dcomplex>& corr_global,
-             const GammaMatrix& gm_src,
-             const GammaMatrix& gm_snk,
-             const double overall_factor,
-             const std::vector<Field_F>& sq1,
-             const std::vector<Field_F>& sq2);
-
-void M_M(std::vector<dcomplex>& corr_global,
+  void M_Tbb(std::vector<dcomplex>& corr_global,
              const GammaMatrix& gm_src,
              const GammaMatrix& gm_snk,
              const double overall_factor,
              const std::vector<Field_F>& sq1,
              const std::vector<Field_F>& sq2);
+
+  void M_M(std::vector<dcomplex>& corr_global,
+           const GammaMatrix& gm_src,
+           const GammaMatrix& gm_snk,
+           const double overall_factor,
+           const std::vector<Field_F>& sq1,
+           const std::vector<Field_F>& sq2);
+  
+  void convert_gamma( const GammaMatrix gm, const std::vector<dcomplex> gamma[4][4]);
+
+
 
   double meson_all(
     const std::vector<Field_F>& sq1,
