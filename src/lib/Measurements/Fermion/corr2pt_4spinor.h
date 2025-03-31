@@ -97,6 +97,12 @@ class Corr2pt_4spinor
                        const std::vector<Field_F>& sq1,
                        const std::vector<Field_F>& sq2);
   
+  void pion_test(std::vector<dcomplex>& corr_global,
+                       const GammaMatrix& gm_sink,
+                       const GammaMatrix& gm_src,
+                       const std::vector<Field_F>& sq1,
+                       const std::vector<Field_F>& sq2);
+  
   void nucleon_correlator(std::vector<dcomplex>& corr_global,
                           const std::vector<Field_F>& sq1,
                           const std::vector<Field_F>& sq2,
@@ -125,9 +131,9 @@ class Corr2pt_4spinor
            const std::vector<Field_F>& sq1,
            const std::vector<Field_F>& sq2);
   
-  void convert_gamma( const GammaMatrix gm, const std::vector<dcomplex> gamma[4][4]);
+  void convert_gamma( const GammaMatrix gm, dcomplex gamma[4][4]);
 
-  void convert_prop( const std::vector<Field_F>& sq, const ******propagator);
+  void convert_prop( const std::vector<Field_F>& quark_prop, dcomplex ******propagator);
 
 
   double meson_all(

@@ -822,7 +822,7 @@ void Corr2pt_4spinor::M_M(std::vector<dcomplex>& corr_global,
 }
 
 //====================================================================
-void Corr2pt_4spinor::convert_gamma( const GammaMatrix gm, const std::vector<dcomplex> gamma[4][4])
+void Corr2pt_4spinor::convert_gamma( const GammaMatrix gm, dcomplex gamma[4][4])
 {
   const int Nd = CommonParameters::Nd();
   
@@ -831,12 +831,12 @@ void Corr2pt_4spinor::convert_gamma( const GammaMatrix gm, const std::vector<dco
 
   for (int id = 0; id < Nd; ++id) {
     id1[id] = gm.index(id) ; // 
-    val[id] = gm.val(id) ;
+    val[id] = gm.value(id) ;
   }
   
   for (int alpha = 0; alpha < Nd; ++alpha ){
     for (int beta = 0; beta < Nd; ++beta ){
-      gamma[alpha][beta] = cmplx(0,0); 
+      gamma[alpha][beta] = cmplx(0.0,0.0); 
     }
   }
 
@@ -847,7 +847,7 @@ void Corr2pt_4spinor::convert_gamma( const GammaMatrix gm, const std::vector<dco
 }
 
 //====================================================================
-void Corr2pt_4spinor::convert_prop( const std::vector<Field_F>& sq, const ******propagator)
+void Corr2pt_4spinor::convert_prop( const std::vector<Field_F>& quark_prop, dcomplex ******propagator)
 {
   const int Nc = CommonParameters::Nc();
   const int Nd = CommonParameters::Nd();
@@ -872,7 +872,7 @@ void Corr2pt_4spinor::convert_prop( const std::vector<Field_F>& sq, const ******
 
   for (int alpha = 0; alpha < Nd; ++alpha){
     for (int a = 0; a < Nc; ++a){
-      quark       = quark_prop[a + Nc * id2[alpha]].ptr(0) ;
+      quark       = quark_prop[a + Nc * id1[alpha]].ptr(0) ;
       
       for (int t = 0; t < Nt; ++t) {
         for (int ss = 0; ss < Nvol_s; ++ss) {
@@ -880,17 +880,16 @@ void Corr2pt_4spinor::convert_prop( const std::vector<Field_F>& sq, const ******
           
           for (int alpha_p = 0; alpha_p < Nd; ++alpha_p){
             for (int a_p = 0; a_p < Nc; ++a_p){
-              dcomplex prop, prop1;
-
-              int ic1_r = 2 * a_p + id2[alpha_p] + site;
+              //dcomplex prop;
+              int ic1_r = 2 * a_p + id1[alpha_p] + site;
               int ic1_i = ic1_r + 1 ;
 
               int ic2_r = 2 * a_p + id1[alpha_p] + site;
               int ic2_i = ic2_r + 1 ;
               
-              prop = cmplx(quark[ic1_r],quark[ic1_i]);
+             // prop = cmplx(quark[ic1_r],quark[ic1_i]);
 
-              propagator[alpha][a][alpha_p][b][t][ss] = prop;
+              propagator[alpha][a][alpha_p][a_p][t][ss] = cmplx(quark[ic1_r],quark[ic1_i]);
             }
           }
         }
@@ -935,14 +934,14 @@ void Corr2pt_4spinor::pion_test(std::vector<dcomplex>& corr_global,
     id2[id] = gm5_gm_sink.index(id) * NC2;
   }
   
-  dcomplex ******quark_prop
+  dcomplex ******quark_prop;
 
   quark_prop=(dcomplex******)malloc(Nc*sizeof(dcomplex*****));
   
   for(int a = 0 ; a < Nc ; ++a)
     { quark_prop[a]=(dcomplex*****)malloc(Nd*sizeof(dcomplex****));
       for(int alpha = 0; alpha < Nd; ++alpha)
-      { quark_prop[a]alpha]=(dcomplex****)malloc(Nc*sizeof(dcomplex***));
+      { quark_prop[a][alpha]=(dcomplex****)malloc(Nc*sizeof(dcomplex***));
         for(int a_p = 0; a_p < Nc; ++a_p)
         {  quark_prop[a][alpha][a_p]=(dcomplex***)malloc(Nd*sizeof(dcomplex**));
            for(int alpha_p = 0; alpha_p < Nd; ++alpha_p)
@@ -971,7 +970,7 @@ void Corr2pt_4spinor::pion_test(std::vector<dcomplex>& corr_global,
       for(int alpha = 0; alpha < Nd; ++alpha){
         for(int a_p = 0; a_p < Nc; ++a_p){
           for(int alpha_p = 0; alpha_p < Nd; ++alpha_p){
-
+            corr_t += quark_prop[a][alpha][a_p][alpha_p][t][ss] * conj(quark_prop[a][alpha][a_p][alpha_p][t][ss]);
             }
           }
         }
