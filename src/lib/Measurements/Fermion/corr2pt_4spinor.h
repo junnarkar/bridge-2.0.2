@@ -133,7 +133,7 @@ class Corr2pt_4spinor
   
   void convert_gamma( const GammaMatrix gm, dcomplex gamma[4][4]);
 
-  void convert_prop( const std::vector<Field_F>& quark_prop, dcomplex ******propagator);
+  void convert_prop( const std::vector<Field_F>& quark_prop,  dcomplex ******propagator);
 
 
   double meson_all(

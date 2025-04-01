@@ -64,13 +64,14 @@ double Corr2pt_4spinor::pion(const std::vector<Field_F>& sq1,
 
   std::vector<dcomplex> corr(Lt);
 
-  GammaMatrix gm_src  = m_gmset->get_GM(m_gmset->GAMMA54);
+  GammaMatrix gm_src  = m_gmset->get_GM(m_gmset->GAMMA5);
   GammaMatrix gm_sink = m_gmset->get_GM(m_gmset->GAMMA5);
   
   vout.general(m_vl, "PS <-- PS correlator:\n");
   
   //meson_correlator(corr, gm_sink, gm_src, sq1, sq2);
-  pion_correlator(corr, gm_sink, gm_src, sq1, sq2);
+  //pion_correlator(corr, gm_sink, gm_src, sq1, sq2);
+  pion_test(corr, gm_sink, gm_src, sq1, sq2);
   //pion_modsq(corr, gm_sink, gm_src, sq1, sq2);
   //pion_correlator_modsq(corr, gm_sink, gm_src, sq1, sq2);
   
@@ -872,7 +873,7 @@ void Corr2pt_4spinor::convert_prop( const std::vector<Field_F>& quark_prop, dcom
 
   for (int alpha = 0; alpha < Nd; ++alpha){
     for (int a = 0; a < Nc; ++a){
-      quark       = quark_prop[a + Nc * id1[alpha]].ptr(0) ;
+      quark       = quark_prop[a + Nc * alpha].ptr(0) ;
       
       for (int t = 0; t < Nt; ++t) {
         for (int ss = 0; ss < Nvol_s; ++ss) {
@@ -880,16 +881,9 @@ void Corr2pt_4spinor::convert_prop( const std::vector<Field_F>& quark_prop, dcom
           
           for (int alpha_p = 0; alpha_p < Nd; ++alpha_p){
             for (int a_p = 0; a_p < Nc; ++a_p){
-              //dcomplex prop;
               int ic1_r = 2 * a_p + id1[alpha_p] + site;
               int ic1_i = ic1_r + 1 ;
-
-              int ic2_r = 2 * a_p + id1[alpha_p] + site;
-              int ic2_i = ic2_r + 1 ;
-              
-             // prop = cmplx(quark[ic1_r],quark[ic1_i]);
-
-              propagator[alpha][a][alpha_p][a_p][t][ss] = cmplx(quark[ic1_r],quark[ic1_i]);
+              propagator[a][alpha][a_p][alpha_p][t][ss] = cmplx(quark[ic1_r],quark[ic1_i]);
             }
           }
         }
@@ -920,19 +914,6 @@ void Corr2pt_4spinor::pion_test(std::vector<dcomplex>& corr_global,
   const GammaMatrix gm5_gm_sink = gm5.mult(gm_sink);
 
   std::vector<dcomplex> corr_local(Nt, cmplx(0.0, 0.0));
-
-  int id1[Nd];
-  int id2[Nd];
-  int id_src[Nd];
-
-  int NC2 = 6 ;
-  int NCD2 = 24;
-
-  for (int id = 0; id < Nd; ++id) {
-    id_src[id] = gm_gm5_src.index(id);
-    id1[id] = id * NC2;
-    id2[id] = gm5_gm_sink.index(id) * NC2;
-  }
   
   dcomplex ******quark_prop;
 
@@ -963,9 +944,6 @@ void Corr2pt_4spinor::pion_test(std::vector<dcomplex>& corr_global,
   for (int t = 0; t < Nt; ++t) {
     corr_t = 0 ;
     for (int ss = 0; ss < Nvol_s; ++ss) {
-
-    int site = NCD2 * (ss + t * Nvol_s);
-    
     for(int a = 0; a < Nc; ++a){
       for(int alpha = 0; alpha < Nd; ++alpha){
         for(int a_p = 0; a_p < Nc; ++a_p){
