@@ -425,9 +425,9 @@ void Corr2pt_4spinor::nucleon_correlator(std::vector<dcomplex>& corr_global,
   global_corr_t(corr_global, corr_local);
 }
 //====================================================================
-void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global,
-                                       const std::vector<Field_F>& sq1)
-{
+void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global, // This version has parity projection at the source and sink. Agrees with the imported code. 
+                                       const std::vector<Field_F>& sq1) // The proton correlator code which was native just provides a gm multiplication to the source indices
+{                                                                       // and therefore not very useful.
   const int Nc = CommonParameters::Nc();
   const int Nd = CommonParameters::Nd();
   const int Lt = CommonParameters::Lt();
