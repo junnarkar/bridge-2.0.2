@@ -514,8 +514,8 @@ void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global, // This v
                         
                         u4_prop = cmplx(u2_quark[ic1_r], u2_quark[ic1_i]);
                         
-                        //corr_t += src_factor * snk_factor * (((u1_prop * u2_prop) - (u3_prop * u4_prop)) * d_prop);
-                        corr_t +=  src_factor * snk_factor * u1_prop * u2_prop * d_prop;
+                        corr_t += src_factor * snk_factor * (((u1_prop * u2_prop) - (u3_prop * u4_prop)) * d_prop);
+                        //corr_t +=  src_factor * snk_factor * u1_prop * u2_prop * d_prop;
                         }
                       }
                     }
@@ -751,8 +751,8 @@ void Corr2pt_4spinor::nucleon_test1(std::vector<dcomplex>& corr_global,
                           int b_p  = e_snk.epsilon_3_index(c_snk, 1);
                           int c_p  = e_snk.epsilon_3_index(c_snk, 2);
                           sign = spin_product *   static_cast<double>(e_snk.epsilon_3_value(c_src)) * static_cast<double>(e_snk.epsilon_3_value(c_snk)); 
-                          //corr_t += sign * ((quark_prop[a][beta][a_p][beta_p][site] * quark_prop[b][kappa][b_p][kappa_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(-1.0,0.0) ) + (quark_prop[a][beta][b_p][kappa_p][site] * quark_prop[b][kappa][a_p][beta_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(1.0,0.0))) ;
-                          corr_t += sign * quark_prop[a][beta][a_p][beta_p][site] * quark_prop[b][kappa][b_p][kappa_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(-1.0,0.0); 
+                          corr_t += sign * ((quark_prop[a][beta][a_p][beta_p][site] * quark_prop[b][kappa][b_p][kappa_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(-1.0,0.0) ) + (quark_prop[a][beta][b_p][kappa_p][site] * quark_prop[b][kappa][a_p][beta_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(1.0,0.0))) ;
+                          //corr_t += sign * quark_prop[a][beta][a_p][beta_p][site] * quark_prop[b][kappa][b_p][kappa_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(-1.0,0.0); 
                         }
                       }
                     }
