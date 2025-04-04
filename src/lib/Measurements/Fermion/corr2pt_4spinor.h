@@ -105,6 +105,15 @@ class Corr2pt_4spinor
   
   void nucleon_correlator(std::vector<dcomplex>& corr_global,
                           const std::vector<Field_F>& sq1);
+  
+  void nucleon_test(std::vector<dcomplex>& corr_global,
+                          const std::vector<Field_F>& sq1);
+  void nucleon_test1(std::vector<dcomplex>& corr_global,
+                          const std::vector<Field_F>& sq1);
+  void nucleon_test2(std::vector<dcomplex>& corr_global,
+                          const std::vector<Field_F>& sq1);
+  
+  dcomplex Sign(int a,int b,int c);
 
   void get_antiquark(const std::vector<Field_F>& quark_prop, std::vector<Field_F>& anti_quark_prop);
 
