@@ -65,8 +65,10 @@ double Corr2pt_4spinor::pion(const std::vector<Field_F>& sq1,
   std::vector<dcomplex> corr(Lt);
 
   GammaMatrix unity  = m_gmset->get_GM(m_gmset->UNITY);
+  GammaMatrix gm5  = m_gmset->get_GM(m_gmset->GAMMA5);
   GammaMatrix gm_src  = m_gmset->get_GM(m_gmset->GAMMA5);
   GammaMatrix gm_sink = m_gmset->get_GM(m_gmset->GAMMA5);
+  GammaMatrix parity = gm5.add(unity); 
   
   vout.general(m_vl, "PS <-- PS correlator:\n");
   
@@ -74,10 +76,10 @@ double Corr2pt_4spinor::pion(const std::vector<Field_F>& sq1,
   //pion_correlator(corr, gm_sink, gm_src, sq1, sq2);
   //pion_test(corr, gm_sink, gm_src, sq1, sq2);
   //nucleon_correlator(corr, sq1);
-  //nucleon_test(corr, sq1);
-  nucleon_test1(corr, sq1);
+  nucleon_test(corr, sq1);
+  //nucleon_test1(corr, sq1);
   //nucleon_test2(corr, sq1);
-  //proton_correlator(corr, unity, sq1, sq2);
+  //proton_correlator(corr, parity, sq1, sq2);
   //pion_modsq(corr, gm_sink, gm_src, sq1, sq2);
   //pion_correlator_modsq(corr, gm_sink, gm_src, sq1, sq2);
   
@@ -441,8 +443,10 @@ void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global,
   const GammaMatrix C         = m_gmset->get_GM(m_gmset->CHARGECONJG);
   const GammaMatrix Cg5_src  = C.mult(gm5);
   const GammaMatrix Cg5_snk  = C.mult(gm5);
-  //const GammaMatrix Cg5_src  = unity;
-  //const GammaMatrix Cg5_snk  = unity;
+  const GammaMatrix parity_src   = gm5.add(unity);
+  const GammaMatrix parity_snk   = gm5.add(unity);
+  //const GammaMatrix parity_src   = unity;
+  //const GammaMatrix parity_snk   = unity;
 
   EpsilonTensor e_src, e_snk;
 
@@ -455,9 +459,10 @@ void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global,
   int id1_src[Nd],id2_src[Nd],id3_src[Nd], id1_snk[Nd],id2_snk[Nd],id3_snk[Nd];
 
   for (int id = 0; id < Nd; ++id) {
-    id1_src[id] = id ;
+    id1_src[id] = parity_src.index(id) ;
     id3_src[id] = Cg5_src.index(id) ;
-    id1_snk[id] = id * NC2;
+    id1_snk[id] = parity_snk.index(id) * NC2;
+    id2_snk[id] = id * NC2;
     id3_snk[id] = Cg5_snk.index(id) * NC2;
   }
   
@@ -471,9 +476,9 @@ void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global,
             int b  = e_src.epsilon_3_index(c_src, 1);
             int c  = e_src.epsilon_3_index(c_src, 2);
 
-            dcomplex src_factor = Cg5_src.value(mu) * static_cast<double>(e_src.epsilon_3_value(c_src));
+            dcomplex src_factor = parity_src.value(alpha) * Cg5_src.value(mu) * static_cast<double>(e_src.epsilon_3_value(c_src));
             
-            u1_quark = sq1[a + Nc * alpha].ptr(0) ;
+            u1_quark = sq1[a + Nc * id1_src[alpha]].ptr(0) ;
             u2_quark = sq1[b + Nc * mu].ptr(0) ;
             d_quark  = sq1[c + Nc * id3_src[mu]].ptr(0) ;
 
@@ -491,13 +496,13 @@ void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global,
 
                         dcomplex u1_prop, u2_prop, u3_prop, u4_prop, d_prop;
 
-                        dcomplex snk_factor =  Cg5_snk.value(mu_p) * static_cast<double>(e_snk.epsilon_3_value(c_snk));
+                        dcomplex snk_factor = parity_snk.value(alpha) * Cg5_snk.value(mu_p) * static_cast<double>(e_snk.epsilon_3_value(c_snk));
                         
                         int ic1_r = 2 * a_p + id1_snk[alpha] + site;
                         int ic1_i = ic1_r + 1 ;
                         u1_prop = cmplx(u1_quark[ic1_r], u1_quark[ic1_i]);
                         
-                        int ic2_r = 2 * b_p + id1_snk[mu_p] + site;
+                        int ic2_r = 2 * b_p + id2_snk[mu_p] + site;
                         int ic2_i = ic2_r + 1 ;
                         u2_prop = cmplx(u2_quark[ic2_r], u2_quark[ic2_i]);
 
@@ -511,9 +516,9 @@ void Corr2pt_4spinor::nucleon_test(std::vector<dcomplex>& corr_global,
                         
                         //corr_t += src_factor * snk_factor * (((u1_prop * u2_prop) - (u3_prop * u4_prop)) * d_prop);
                         corr_t +=  src_factor * snk_factor * u1_prop * u2_prop * d_prop;
+                        }
+                      }
                     }
-                  }
-                }
                 corr_local[t] += corr_t;
               }
             }
@@ -681,7 +686,7 @@ void Corr2pt_4spinor::nucleon_test1(std::vector<dcomplex>& corr_global,
   const GammaMatrix gm5       = m_gmset->get_GM(m_gmset->GAMMA5);
   const GammaMatrix C         = m_gmset->get_GM(m_gmset->CHARGECONJG);
   const GammaMatrix Cg5_b  = C.mult(gm5);
-  const GammaMatrix parity_b   = unity;
+  const GammaMatrix parity_b   = gm5.add(unity);
   const GammaMatrix polarisation_b   = unity;
 
   EpsilonTensor e_src, e_snk;
@@ -689,7 +694,8 @@ void Corr2pt_4spinor::nucleon_test1(std::vector<dcomplex>& corr_global,
   dcomplex Cg5[4][4], parity[4][4], polarisation[4][4], spin_product, sign;
 
   convert_gamma(Cg5_b, Cg5);
-  convert_gamma(unity, parity);
+  convert_gamma(parity_b, parity);
+  //convert_gamma(unity, parity);
   convert_gamma(unity, polarisation);
   
   /*
@@ -746,7 +752,7 @@ void Corr2pt_4spinor::nucleon_test1(std::vector<dcomplex>& corr_global,
                           int c_p  = e_snk.epsilon_3_index(c_snk, 2);
                           sign = spin_product *   static_cast<double>(e_snk.epsilon_3_value(c_src)) * static_cast<double>(e_snk.epsilon_3_value(c_snk)); 
                           //corr_t += sign * ((quark_prop[a][beta][a_p][beta_p][site] * quark_prop[b][kappa][b_p][kappa_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(-1.0,0.0) ) + (quark_prop[a][beta][b_p][kappa_p][site] * quark_prop[b][kappa][a_p][beta_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(1.0,0.0))) ;
-                          corr_t += sign * quark_prop[a][beta][a_p][beta_p][site] * quark_prop[b][kappa][b_p][kappa_p][site] * quark_prop[c][rho][c_p][rho_p][site]; 
+                          corr_t += sign * quark_prop[a][beta][a_p][beta_p][site] * quark_prop[b][kappa][b_p][kappa_p][site] * quark_prop[c][rho][c_p][rho_p][site] * cmplx(-1.0,0.0); 
                         }
                       }
                     }
